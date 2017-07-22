@@ -10,26 +10,30 @@ const path = require("path");
 
 // Top level tasks:
 gulp.task("default", ["build"]);
-gulp.task("build", ["build-src", "build-test"]);
-gulp.task("dist", ["build-src", "dist-files"]);
+gulp.task("build", ["build-src", "build-min", "build-test"]);
+gulp.task("dist", ["build-src", "build-min"], task_dist);
 gulp.task("clean", task_clean);
 
 // Supportive tasks:
 gulp.task("build-src", task_build_src);
+gulp.task("build-min", ["build-src"], task_build_min);
 gulp.task("build-test", task_build_test);
-gulp.task("dist-files", ["build-src"], task_dist_files);
 
 function task_build_src() {
     return call_webpack("./src/webpack.config.js");
+}
+
+function task_build_min() {
+    return call_webpack("./src/webpack.config.js", true);
 }
 
 function task_build_test() {
     return call_tsc("./test/tsconfig.json");
 }
 
-function task_dist_files() {
+function task_dist() {
     return merge([
-        copy_nodejs_files(),
+        copy_dist_files(),
         copy_package_json()
     ]);
 }
@@ -47,22 +51,29 @@ function call_tsc(cfg_path) {
     ]);
 }
 
-function call_webpack(cfg_path) {
-    const cfg = require(cfg_path);
-    return gulp.src(cfg.entry).pipe(ws(cfg, webpack)).pipe(gulp.dest(cfg.output.path));
+function call_webpack(cfg_path, minified) {
+    let cfg = require(cfg_path);
+
+    if (minified) {
+        cfg.plugins = [
+            new webpack.optimize.UglifyJsPlugin({ minimize: true, sourceMap: true })
+        ];
+        let fn = path.parse(cfg.output.filename);
+        fn.ext = ".min.js";
+        delete fn.base;
+        cfg.output.filename = path.format(fn);
+    }
+
+    return gulp.src(cfg.entry).pipe(ws(cfg, webpack)).pipe(gulp.dest("./out/built"));
 }
 
-function copy(src, dest) {
-    return gulp.src(src).pipe(gulp.dest(dest));
-}
-
-function copy_nodejs_files() {
-    return copy([
+function copy_dist_files() {
+    return gulp.src([
         "./LICENSE",
         "./README.md",
         "./def/is-pe.d.ts",
-        "./out/webpack/is-pe.js",
-    ], "./out/dist/nodejs");
+        "./out/built/*",
+    ]).pipe(gulp.dest("./out/dist"));
 }
 
 function copy_package_json() {
@@ -73,5 +84,5 @@ function copy_package_json() {
             delete json.devDependencies;
             return json;
         }))
-        .pipe(gulp.dest("./out/dist/nodejs"));
+        .pipe(gulp.dest("./out/dist"));
 }

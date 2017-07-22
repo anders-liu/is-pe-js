@@ -3,19 +3,7 @@ A JavaScript/Node.js module to check whether a given buffer is in PE (Portable E
 
 ## Build and Test
 
-### Prerequisites
-
-For reducing workspace size, most dev dependencies should be installed globally.
-
-- Basic Tools
-    - **gulp**, for building.
-    - **typescript**, for compiling TypeScript sources.
-    - **webpack**, for packaging universal JavaScript module.
-- Webpack Dependencies
-    - **ts-loader**, for loading TypeScript sources.
-    - **source-map-loader**, for loading and merging source maps.
-- Gulp Dependencies
-    - **gulp-webpack**, for calling webpack.
-    - **gulp-json-editor**, for editing package.json.
-    - **gulp-clean**, for cleaning output directory.
-    - **merge2**, for merging multiple pipe streams.
+* Build source codes and tests: `gulp` and check output at `./out/built`
+* Build npm package: `gulp dist` and check output at `./out/dist`
+* Clean up all outputs: `gulp clean`
+* Run tests: `npm test` or `jest`
