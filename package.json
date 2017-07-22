@@ -1,0 +1,63 @@
+{
+  "name": "is-pe",
+  "version": "1.0.0",
+  "description": "A JavaScript/Node.js module to check whether a given buffer is in PE (Portable Executable) format, and to check some basic information, for example, is it exe or dll? Is it 32-bit or 64-bit? Is it managed (Microsoft .NET executable)?",
+  "main": "is-pe.js",
+  "scripts": {
+    "build": "gulp",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anders-liu/is-pe-js.git"
+  },
+  "keywords": [
+    "is-pe",
+    "is-exe",
+    "is-dll"
+  ],
+  "author": "Anders Liu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anders-liu/is-pe-js/issues"
+  },
+  "homepage": "https://github.com/anders-liu/is-pe-js#readme",
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "out/test/results/",
+    "coverageReporters": [
+      "text",
+      "json",
+      "html"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/out/test/"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "out/webpack"
+    ],
+    "roots": [
+      "./out/test"
+    ],
+    "testRegex": "test\\.js$",
+    "verbose": true
+  },
+  "devDependencies": {
+    "@types/jest": "^20.0.4",
+    "@types/node": "^8.0.14",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-json-editor": "^2.2.1",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-typescript": "^3.2.1",
+    "jest": "^20.0.4",
+    "merge2": "^1.1.0",
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.3.1",
+    "typescript": "^2.4.2",
+    "webpack": "^3.3.0",
+    "webpack-stream": "^3.2.0"
+  }
+}
