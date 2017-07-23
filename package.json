@@ -1,7 +1,7 @@
 {
   "name": "is-pe",
   "version": "1.0.0",
-  "description": "A JavaScript/Node.js module to check whether a given buffer is in PE (Portable Executable) format, and to check some basic information, for example, is it exe or dll? Is it 32-bit or 64-bit? Is it managed (Microsoft .NET executable)?",
+  "description": "A JavaScript/Node.js module to check whether a given buffer is potentially in PE (Portable Executable) format, and to check some basic information, for example, is it exe or dll? Is it 32-bit or 64-bit? Is it managed (Microsoft .NET executable)?",
   "main": "is-pe.js",
   "types": "is-pe.d.ts",
   "scripts": {
