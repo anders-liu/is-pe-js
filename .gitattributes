@@ -1,2 +1,5 @@
+# Test fixtures.
+*.FAKE_IMAGE binary
+
 # Auto detect text files and perform LF normalization
 * text=auto
