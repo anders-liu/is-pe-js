@@ -1,0 +1,11 @@
+{
+  "name": "is-pe-sample-node-ts",
+  "version": "1.0.0",
+  "description": "Demonstrate how to use 'is-pe' lib in Node.js application in TypeScript.",
+  "main": "index.js",
+  "author": "Anders Liu",
+  "license": "MIT",
+  "dependencies": {
+    "is-pe": "file:..\\..\\out\\dist"
+  }
+}

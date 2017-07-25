@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Check PE file</title>
+</head>
+<script src="../../out/dist/is-pe.min.js"></script>
+<script>
+    "use strict"
+
+    function handleFileInputChange(files) {
+        if (!files || files.length == 0)
+            return;
+
+        var msg = document.getElementById("msg");
+        msg.innerHTML = "";
+
+        var reader = new FileReader();
+
+        reader.onload = function (evt) {
+            var fileData = evt.target.result;
+            var buffer = new Uint8Array(fileData);
+            var it = window["is-pe"];
+
+            var results = {
+                isPE: it.isPE(buffer),
+                isPE32: it.isPE32(buffer),
+                isPE64: it.isPE64(buffer),
+                isExe: it.isExe(buffer),
+                isExe32: it.isExe32(buffer),
+                isExe64: it.isExe64(buffer),
+                isDll: it.isDll(buffer),
+                isDll32: it.isDll32(buffer),
+                isDll64: it.isDll64(buffer),
+                isManagedPE: it.isManagedPE(buffer),
+                isManagedPE32: it.isManagedPE32(buffer),
+                isManagedPE64: it.isManagedPE64(buffer),
+                isManagedExe: it.isManagedExe(buffer),
+                isManagedExe32: it.isManagedExe32(buffer),
+                isManagedExe64: it.isManagedExe64(buffer),
+                isManagedDll: it.isManagedDll(buffer),
+                isManagedDll32: it.isManagedDll32(buffer),
+                isManagedDll64: it.isManagedDll64(buffer),
+            };
+
+            var table = msg.appendChild(document.createElement("table"));
+            for (var x of Object.getOwnPropertyNames(results)) {
+                var row = table.appendChild(document.createElement("tr"));
+                var tdKey = row.appendChild(document.createElement("td"));
+                tdKey.innerText = x;
+                var tdVal = row.appendChild(document.createElement("td"));
+                tdVal.innerText = results[x];
+            }
+        }
+        reader.readAsArrayBuffer(files[0]);
+    }
+
+</script>
+
+<body>
+    <div>
+        Select a file to check:
+        <input id="fileInput" type="file" onchange="handleFileInputChange(this.files)"></input>
+    </div>
+    <div id="msg"></div>
+</body>
+
+</html>
